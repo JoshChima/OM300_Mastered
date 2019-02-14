@@ -17,7 +17,20 @@ def ActInput(name, time, Ip):
     Iplib.update({'%s'%(name): Ip})
     Activities.append(Activity)
 def ESoutput(Anum):
-    ES = 0
+    if timelib[Anum] == 'None':
+        ES = 0
+    elif timelib[Anum] > 0 and len(timelib[Anum]) == 1:
+        Ipnu = Iplib[Anum]
+        IpEf = Ef[Ipnu]
+        ES = IpEf
+    else:
+        IpEfs = []
+        for k in Iplib[Anum]:
+            Ipnu = Iplib[Anum][k]
+            IpEf = Ef[Ipnu]
+            IpEfs.append(IpEf)
+        ES = max(IpEfs)
+        
     Esn = Activities[Anum]['name']
     Est = timelib[Anum]
     EsIp = Iplib[Anum]
@@ -34,6 +47,11 @@ def MActInput(nlst, tlst, Iplst):
             Ipx = Iplst[x]
             x += 1
             ActInput(nx,tx,Ipx)
+def Actmove(nlst, tlst, Iplst):
+    MActInput(nlst, tlst, Iplst)
+    for x in name:
+        if timelib[x] == 'None':
+            
 
 
 #ActInput('A', 3, ['B','C'])
@@ -45,6 +63,7 @@ print(timelib)
 print(Iplib)
 
 #test = [{"tname":3}, {"tname":6}, {"tname":8}]
+#lndtest = {'T1':[3,4], 'T2':[8,6], 'T3':[7,9]}
 #def pick(x):
     #return test[x]['tname']
 #def ptest():
@@ -54,7 +73,6 @@ print(Iplib)
     #    ans.append(px)
     #return ans
 #print(ptest()) returns [3,6,8]
-
 #testd = test[0]['tname']
-
 #print(testd)
+#print(lndtest['T1'][1]) returns [4]
