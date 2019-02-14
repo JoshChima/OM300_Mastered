@@ -1,6 +1,6 @@
 name = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 time = [3,5,1,10,4,5,10]
-Ip = [['None'], ['None'], ['None'], ['B'], ['A','D'], ['C'], ['E','F']]
+Ip = ['None', 'None', 'None', ['B'], ['A','D'], ['C'], ['E','F']]
 Activities = []
 timelib = {}
 Iplib = {}
@@ -17,9 +17,9 @@ def ActInput(name, time, Ip):
     Iplib.update({'%s'%(name): Ip})
     Activities.append(Activity)
 def ESoutput(Anum):
-    if timelib[Anum] == 'None':
+    if Iplib[Anum] == 'None':
         ES = 0
-    elif timelib[Anum] > 0 and len(timelib[Anum]) == 1:
+    elif Iplib[Anum] != 'None' and len(Iplib[Anum]) == 1:
         Ipnu = Iplib[Anum]
         IpEf = Ef[Ipnu]
         ES = IpEf
@@ -30,10 +30,11 @@ def ESoutput(Anum):
             IpEf = Ef[Ipnu]
             IpEfs.append(IpEf)
         ES = max(IpEfs)
-        
-    Esn = Activities[Anum]['name']
-    Est = timelib[Anum]
-    EsIp = Iplib[Anum]
+    Es.update({'%s'%(Anum):'%d'%(ES)})
+def EFoutput(Anum):
+    EF = Es[Anum] + timelib[Anum]
+    Ef.update({'%s'%(Anum):'%d'%(EF)})
+
 def MActInput(nlst, tlst, Iplst):
     if len(tlst) != len(nlst):
         print('RangeError, length of time does not match length of names')
@@ -50,7 +51,8 @@ def MActInput(nlst, tlst, Iplst):
 def Actmove(nlst, tlst, Iplst):
     MActInput(nlst, tlst, Iplst)
     for x in name:
-        if timelib[x] == 'None':
+        if Iplib[x] == 'None':
+            ESoutput(x)
             
 
 
