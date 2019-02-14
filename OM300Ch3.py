@@ -1,4 +1,4 @@
-name = ['A','B','C','D','E','F','G']
+name = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 time = [3,5,1,10,4,5,10]
 Ip = [[False], [False], [False], ['B'], ['A','D'], ['C'], ['E','F']]
 Activities = []
@@ -16,18 +16,21 @@ def MActInput(nlst, tlst, Iplst):
     if len(tlst) != len(nlst):
         print('RangeError, length of time does not match length of names')
     elif len(Iplst) != len(nlst):
-                print('RangeError, length of Ip does not match length of names')
+        print('RangeError, length of Ip does not match length of names')
     else:
-        for x in range(len(nlst)):
+        x = 0
+        while x in range(0, len(nlst)):
             nx = nlst[x]
             tx = tlst[x]
             Ipx = Iplst[x]
+            x += 1
             ActInput(nx,tx,Ipx)
 
 
-ActInput('A', 3, ['B','C'])
-ActInput('B', 6, ['D'])
+#ActInput('A', 3, ['B','C'])
+#ActInput('B', 6, ['D'])
 
+print(MActInput(name, time, Ip))
 print(Activities)
 
 
