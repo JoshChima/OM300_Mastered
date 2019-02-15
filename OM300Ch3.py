@@ -48,14 +48,15 @@ def MActInput(nlst, tlst, Iplst):
             Ipx = Iplst[x]
             x += 1
             ActInput(nx,tx,Ipx)
-def Actmove(nlst, tlst, Iplst):
-    MActInput(nlst, tlst, Iplst)
+def Actmove1(nlst, tlst, Iplst):
+    MActInput(nlst, tlst, Iplst) 
     for x in name:
         if Iplib[x] == 'None':
             ESoutput(x)
-            
-
-
+            EFoutput(x)
+        for y in Iplib[x]:
+            ESoutput(y)
+            EFoutput(y)
 #ActInput('A', 3, ['B','C'])
 #ActInput('B', 6, ['D'])
 
