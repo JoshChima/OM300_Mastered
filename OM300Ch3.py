@@ -9,6 +9,8 @@ Es = {}
 Ef = {}
 Ls = {}
 Lf = {}
+Slack = {}
+Criticalpath = []
 
 def ActInput(name, time, Ip):
     Activity = {}
@@ -49,7 +51,7 @@ def LSoutput(Anum):
 def LFoutput(Anum):
     if Iflib.get(Anum) == None:
         IfLf = Ef[Anum]
-        Ls.update({'%s'%(Anum):IfLf})
+        Lf.update({'%s'%(Anum):IfLf})
     else:
         Ifnu = Iflib[Anum]
         IfLs = Ls[Ifnu]
@@ -67,6 +69,11 @@ def MActInput(nlst, tlst, Iplst):
             Ipx = Iplst[x]
             x += 1
             ActInput(nx,tx,Ipx)
+def Criticalpth(Anum):
+    Slck = int(Ls[Anum]) - int(Es[Anum])
+    Slack.update({'%s'%(Anum):Slck})
+    if Slck == 0:
+        Criticalpath.append(Anum)
 def Actmove1(nlst, tlst, Iplst):
     MActInput(nlst, tlst, Iplst)
     for x in name:
@@ -80,31 +87,20 @@ def Actmove1(nlst, tlst, Iplst):
     for y in reversed(name):
         LFoutput(y)
         LSoutput(y)
-#ActInput('A', 3, ['B','C'])
-#ActInput('B', 6, ['D'])
-
-#print(MActInput(name, time, Ip))
+    for z in name:
+        Criticalpth(z)
+    print('ES:')
+    print(Es)
+    print('EF:')
+    print(Ef)
+    print('LS:')
+    print(Ls)
+    print('LF:')
+    print(Lf)
+    print('Critical Path:')
+    print(Criticalpath)
 print(Actmove1(name, time, Ip))
 #print(Activities)
 #print(timelib)
 #print(Iplib)
 #print(Iflib)
-#print(Es)
-print(Ef)
-#print(Ls)
-print(Lf)
-
-#test = [{"tname":3}, {"tname":6}, {"tname":8}]
-#lndtest = {'T1':[3,4], 'T2':[8,6], 'T3':[7,9]}
-#def pick(x):
-    #return test[x]['tname']
-#def ptest():
- #   ans = []
-  #  for x in range(len(test)):
-   #     px = pick(x)
-    #    ans.append(px)
-    #return ans
-#print(ptest()) returns [3,6,8]
-#testd = test[0]['tname']
-#print(testd)
-#print(lndtest['T1'][1]) returns [4]
