@@ -4,7 +4,7 @@ Ip = ['None', 'None', 'None', ['B'], ['A','D'], ['C'], ['E','F']]
 Activities = []
 timelib = {}
 Iplib = {}
-If = []
+Iflib = {}
 Es = {}
 Ef = {}
 Ls = {}
@@ -16,6 +16,11 @@ def ActInput(name, time, Ip):
     timelib.update({'%s'%(name):time})
     Iplib.update({'%s'%(name): Ip})
     Activities.append(Activity)
+def Ifoutput(Anum):
+    for z in name:
+        for y in range(len(Iplib[z])):
+            if Iplib[z][y] == Anum:
+                Iflib.update({'%s'%(Anum): z})
 def ESoutput(Anum):
     if Iplib[Anum] == 'None':
         ES = 0
@@ -34,7 +39,21 @@ def ESoutput(Anum):
 def EFoutput(Anum):
     EF = int(Es[Anum]) + int(timelib[Anum])
     Ef.update({'%s'%(Anum):EF})
-
+def LSoutput(Anum):
+    if Iflib.get(Anum) == None:
+        LS = Es[Anum]
+        Ls.update({'%s'%(Anum):LS})
+    else:
+        LS = int(Lf[Anum]) - int(timelib[Anum])
+        Ls.update({'%s'%(Anum):LS})
+def LFoutput(Anum):
+    if Iflib.get(Anum) == None:
+        IfLf = Ef[Anum]
+        Ls.update({'%s'%(Anum):IfLf})
+    else:
+        Ifnu = Iflib[Anum]
+        IfLs = Ls[Ifnu]
+        Lf.update({'%s'%(Anum):IfLs})
 def MActInput(nlst, tlst, Iplst):
     if len(tlst) != len(nlst):
         print('RangeError, length of time does not match length of names')
@@ -51,23 +70,29 @@ def MActInput(nlst, tlst, Iplst):
 def Actmove1(nlst, tlst, Iplst):
     MActInput(nlst, tlst, Iplst)
     for x in name:
+        Ifoutput(x)
         if Iplib[x] == 'None':
             ESoutput(x)
-            EFoutput(x)
+            EFoutput(x)            
         if Iplib[x] != 'None':
             ESoutput(x)
             EFoutput(x)
-
+    for y in reversed(name):
+        LFoutput(y)
+        LSoutput(y)
 #ActInput('A', 3, ['B','C'])
 #ActInput('B', 6, ['D'])
 
-print(MActInput(name, time, Ip))
-print(Activities)
-print(timelib)
-print(Iplib)
+#print(MActInput(name, time, Ip))
 print(Actmove1(name, time, Ip))
-print(Es)
+#print(Activities)
+#print(timelib)
+#print(Iplib)
+#print(Iflib)
+#print(Es)
 print(Ef)
+#print(Ls)
+print(Lf)
 
 #test = [{"tname":3}, {"tname":6}, {"tname":8}]
 #lndtest = {'T1':[3,4], 'T2':[8,6], 'T3':[7,9]}
