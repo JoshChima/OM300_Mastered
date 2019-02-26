@@ -17,5 +17,7 @@ class Total_Life_Cycle_Cost:
         return float(self.MpY) * float(self.VOcost) * float(self.ULoV)
     def TLCC(self):
         return float(self.VPCost) + float(self.LCCoF()) + float(self.LCOC())
+
 V1 = Total_Life_Cycle_Cost(18000, 0.15, 16, 15500, 31, 3.66)
 print(V1.TLCC())
+
