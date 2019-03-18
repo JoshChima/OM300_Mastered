@@ -2,6 +2,7 @@ import scipy as sy
 import sympy as sym
 from scipy.optimize import fsolve
 import numpy as np
+import matplotlib.pyplot as plt
 class Total_Life_Cycle_Cost:
     
     def __init__(self, VPCost, VOcost, ULoV, MpY, MpG, AveFPpG):
@@ -21,32 +22,26 @@ class Total_Life_Cycle_Cost:
         return float(self.VPCost) + float(self.LCCoF()) + float(self.LCOC())
 
 V1 = Total_Life_Cycle_Cost(18000, 0.15, 16, 15500, 31, 3.66)
-#print(V1.TLCC())
+V2 = Total_Life_Cycle_Cost(21000, 0.09, 11, 30000, 30, 2.28)
+V3 = Total_Life_Cycle_Cost(25000, 0.06, 11, 30000, 43, 2.28)
 
-V2 = Total_Life_Cycle_Cost(18000, 0.14, 15, 15500, 33, 3.77)
-V3 = Total_Life_Cycle_Cost(19500, 0.08, 15, 15500, 35, 3.77)
+VV2 = (V2.AveFPpG / V2.MpG) + V2.VOcost
+VV3 = (V3.AveFPpG / V3.MpG) + V3.VOcost
+Crossover_point_M = (V3.VPCost - V2.VPCost) / (VV2 - VV3)
+Crossover_point_Y = Crossover_point_M / V2.MpY
+print(Crossover_point_M)
+print(V2.TLCC())
+print(V3.TLCC())
+#def Tcost(Price, DpY, NoY, OCpM, mileage, CpG):
+    #Total_Ocost = DpY * NoY * OCpM
+    #Total_Fcost = ((DpY * NoY) / mileage) * CpG
+    #Totalcost = Price + Total_Ocost + Total_Fcost
+    #print(Totalcost)
 
-M = np.array(range(0, 300))
-#VV2 = V2.VPCost + ((V2.AveFPpG/V2.MpG) + V2.VOcost) * M
-#VV3 = V3.VPCost + ((V3.AveFPpG/V3.MpG) + V3.VOcost) * M
-difl = []
-for m in range(len(M)):
-    x = M[m]
-    VV2 = (V2.AveFPpG/V2.MpG) + V2.VOcost
-    VV3 = (V3.AveFPpG/V3.MpG) + V3.VOcost
-    func1 = V2.VPCost + (float(x) * VV2)
-    func2 = V3.VPCost + (float(x) * VV3)
-    dif = abs(func1 - func2)
-    difl.append(dif)
-    if func1 == func2:
-        print(x)
-    #elif difl[m] == min(difl):
-        #print(difl[m])
-        #print(x)
-    else:
-        continue
-print(difl)
-print(min(difl))
-#VV23A = sym.geometry.in
+Totalcost = 94000 + 0.47 * 11 * 32000 + ((32000 * 11) / 12) * 3
+#print(Totalcost)
 
-#print(VV23A)
+def New_Crpoint(CrPM, MpY):
+    print(CrPM / MpY)
+
+New_Crpoint(68548, 24000)
