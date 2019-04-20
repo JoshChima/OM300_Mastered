@@ -1,5 +1,9 @@
 import numpy as np
-np.array([],[])
 
-x =[3*12,9*8,60,8*4,7*6,11*3]
-print(sum(x))
+a = []
+b = []
+c = []
+Supply = [100,300,300]
+Demand = [300,200,200]
+T_Matrix = np.array([a,b,c])
+print(T_Matrix)

@@ -26,8 +26,12 @@ allowance = 0.18
 average_df = [round(np.average(x), ndigits=2) for x in df]
 normal_df = [round(Normal_T(average_df[x],P_r_df[x]),ndigits=2) for x in range(0,len(P_r_df))]
 s,x_b = S(df_whl)
-print(average_df)
-print(normal_df)
-print(Standard_T(sum(normal_df),.18))
-print(df_whl)
-print(Requires_Sample_Size(1.96,x_b,18.56,.05))
+#print(average_df)
+#print(normal_df)
+#print(Standard_T(sum(normal_df),.18))
+#print(df_whl)
+#print(Requires_Sample_Size(1.96,x_b,18.56,.05))
+av = 384/(160-(160*.2))
+norm = Normal_T((av),.8)
+stand = Standard_T(norm,.08)
+print(Ss(1.96,))
